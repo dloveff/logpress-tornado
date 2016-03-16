@@ -18,15 +18,16 @@ class blog:
         '''
         url = url + 'blog'
         # url = url + 'blog?&slug=slug9'
-        # r = requests.get(url)
-        # return r.text
-
-        data = {
-            'slug': 123,
-        }
-
-        r = requests.post(url, data)
+        r = requests.get(url)
+        print r.headers
         return r.text
+
+        # data = {
+        #     'slug': 123,
+        # }
+        #
+        # r = requests.post(url, data)
+        # return r.text
 
 
 if __name__ == '__main__':

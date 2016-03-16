@@ -19,6 +19,7 @@ class BlogHandler(BaseHandler):
     def get(self):
         # print self.slug
         # doc = Post.find_one_by(Post.slug == self.slug)
+        self.set_header("Content-Type", "application/json; charset=UTF-8")
         doc = Post.find_one_by(Post.slug == 'slug')
         self.write(doc)
 
