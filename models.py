@@ -62,6 +62,13 @@ class Post(db.Model):
     slug = peewee.CharField(null=True)
     created = peewee.DateTimeField(default=datetime.datetime.now)
 
+    public_fields = [
+        'title',
+        'slug',
+        'content',
+        'created',
+    ]
+
     @property
     def url(self):
         return '/post/post-%d.html' % (self.id)

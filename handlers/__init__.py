@@ -50,6 +50,8 @@ class BaseHandler(RequestHandler, FlashMessagesMixin, ExceptionMixin):
 
     def get_object_or_404(self, model, **kwargs):
         try:
+            print model
+            print kwargs
             return model.get(**kwargs)
         except model.DoesNotExist:
             raise HTTPError(404)
