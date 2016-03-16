@@ -3,9 +3,9 @@
 
 __author__ = 'dong'
 
-
 try:
     import psyco
+
     psyco.full()
 except:
     pass
@@ -17,8 +17,6 @@ from helpers.utils import json_dumps
 
 
 class BlogHandler(BaseHandler):
-
-
     def get(self):
         print 'get------'
         post = Post.get(id=1)

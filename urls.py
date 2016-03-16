@@ -7,11 +7,9 @@ try:
 except:
     pass
 from tornado.web import url
-
 from handlers import account, admin, blog
 from handlers import ErrorHandler
 from api import *
-
 
 routes = []
 routes.extend(blog.routes)

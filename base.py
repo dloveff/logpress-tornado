@@ -3,13 +3,11 @@
 
 __author__ = 'dong'
 
-
 import peewee
 from models import *
 
 
 class BaseModel():
-
     # 公共字段
     public_fields = []
 

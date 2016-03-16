@@ -12,9 +12,7 @@ from tornado.httpserver import HTTPServer
 from tornado.options import define, options
 from tornado.web import url
 import sys
-
 from lib import filters, session
-
 from core import jinja_environment, smtp_server
 from core import settings
 from core import redis_server
