@@ -26,7 +26,17 @@ class BaseModel(Model):
         try:
             doc = Post.get(id=1, slug='slug')
             # doc = Post.select().where(Post.slug == 'slug').get()
-            json_data = utils.json_dumps(model_to_dict(doc))
-            return json_data
+            return self.format(doc)
         except DoesNotExist:
-            return None
+            return ''
+
+    @classmethod
+    def format(cls, doc, **kwargs):
+        '''
+        格式化内容
+        :param doc:
+        :param kwargs:
+        :return:
+        '''
+        json_data = utils.json_dumps(model_to_dict(doc))
+        return json_data
