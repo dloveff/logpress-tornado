@@ -14,9 +14,10 @@ from core import db
 from lib.helpers import create_token, cached_property
 from core import smtp_server, settings
 from config import DOMAIN as domain
+from base import BaseModel
 
 
-class User(db.Model):
+class User(BaseModel):
     username = peewee.CharField()
     password = peewee.CharField()
     email = peewee.CharField()
@@ -40,7 +41,7 @@ class User(db.Model):
         db_table = 'users'
 
 
-class Category(db.Model):
+class Category(BaseModel):
     name = peewee.CharField()
     slug = peewee.CharField()
 
@@ -52,7 +53,7 @@ class Category(db.Model):
         db_table = 'category'
 
 
-class Post(db.Model):
+class Post(BaseModel):
     title = peewee.CharField()
     slug = peewee.CharField(index=True, max_length=100)
     category = peewee.ForeignKeyField(Category, related_name='posts')
@@ -109,7 +110,7 @@ class Post(db.Model):
         order_by = ('-created',)
 
 
-class Tag(db.Model):
+class Tag(BaseModel):
     name = peewee.CharField(max_length=50)
     post = peewee.IntegerField()
 
@@ -118,7 +119,7 @@ class Tag(db.Model):
         return '/tag/%s' % (urllib.quote(self.name.encode('utf8')))
 
 
-class Comment(db.Model):
+class Comment(BaseModel):
     post = peewee.ForeignKeyField(Post, related_name='comments')
     author = peewee.CharField()
     website = peewee.CharField(null=True)
@@ -146,7 +147,7 @@ class Comment(db.Model):
         db_table = 'comments'
 
 
-class Link(db.Model):
+class Link(BaseModel):
     name = peewee.CharField()
     url = peewee.CharField()
 

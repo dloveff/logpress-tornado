@@ -4,28 +4,22 @@
 __author__ = 'dong'
 
 from peewee import *
-from models import *
-from playhouse.shortcuts import model_to_dict, dict_to_model
-import json
+from playhouse.shortcuts import model_to_dict
 from helpers import utils
+from core import db
 
-class BaseModel(Model):
-    # 公共字段
-    public_fields = []
 
-    # 最少字段
-    min_fields = []
+class BaseModel(db.Model):
 
     @classmethod
-    def find_by(self, criteria, fields, **kwargs):
+    def find_one_by(self, *query, **kwargs):
         '''
         查找
         :param kwargs:
         :return:
         '''
         try:
-            doc = Post.get(id=1, slug='slug')
-            # doc = Post.select().where(Post.slug == 'slug').get()
+            doc = self.get(*query, **kwargs)
             return self.format(doc)
         except DoesNotExist:
             return ''

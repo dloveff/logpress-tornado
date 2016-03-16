@@ -10,18 +10,18 @@ try:
 except:
     pass
 
-from handlers import BaseHandler
 from models import Post
-from base import BaseModel as m
-from helpers.utils import json_dumps
+from base import BaseHandler
 
 
 class BlogHandler(BaseHandler):
+
     def get(self):
-
-        criteria = {
-            'id': 1,
-        }
-        doc = m.find_by(criteria=criteria, fields=Post.public_fields)
-
+        # print self.slug
+        # doc = Post.find_one_by(Post.slug == self.slug)
+        doc = Post.find_one_by(Post.slug == 'slug')
         self.write(doc)
+
+    def post(self):
+        slug = self.slug
+        print slug
