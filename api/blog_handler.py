@@ -18,13 +18,10 @@ from helpers.utils import json_dumps
 
 class BlogHandler(BaseHandler):
     def get(self):
-        print 'get------'
-        post = Post.get(id=1)
-        p = Post.public_fields
 
         criteria = {
             'id': 1,
         }
         doc = m.find_by(criteria=criteria, fields=Post.public_fields)
 
-        self.write(str(doc))
+        self.write(doc)

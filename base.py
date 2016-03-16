@@ -3,11 +3,13 @@
 
 __author__ = 'dong'
 
-import peewee
+from peewee import *
 from models import *
+from playhouse.shortcuts import model_to_dict, dict_to_model
+import json
+from helpers import utils
 
-
-class BaseModel():
+class BaseModel(Model):
     # 公共字段
     public_fields = []
 
@@ -21,9 +23,10 @@ class BaseModel():
         :param kwargs:
         :return:
         '''
-        print criteria
-        print fields
-        doc = Post.get(id=1, slug='slug')
-        print doc.id
-        print doc.slug
-        return doc.id
+        try:
+            doc = Post.get(id=1, slug='slug')
+            # doc = Post.select().where(Post.slug == 'slug').get()
+            json_data = utils.json_dumps(model_to_dict(doc))
+            return json_data
+        except DoesNotExist:
+            return None
