@@ -5,6 +5,9 @@ __author__ = 'dong'
 
 import json
 import datetime
+import random
+from uuid import uuid4
+from helpers.tools import config
 
 
 def __default(obj):
@@ -31,3 +34,23 @@ def json_dumps(dict, **kwargs):
     '''
     kwargs['default'] = __default
     return json.dumps(dict, **kwargs)
+
+
+def get_random_token():
+    '''
+    生成随机token
+    :return:
+    '''
+    return uuid4().hex
+
+
+def get_random_verify_code(source=None, size=None):
+    '''
+    生成随机验证码
+    :param source:
+    :param size:
+    :return:
+    '''
+    source = source or config.verify_code.source
+    size = size or config.verify_code.size
+    return ''.join([random.choice(source) for _ in xrange(size)])
