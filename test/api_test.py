@@ -22,7 +22,6 @@ class blog:
 
         url = url + 'blog'
         data = {
-            'bb': 123,
             'slug': 123,
         }
 

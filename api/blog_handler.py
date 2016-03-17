@@ -29,6 +29,7 @@ class BlogHandler(BaseHandler):
     @decoractor.wrap_request(need_token=False, body_fields=['slug'])
     @tornado.gen.coroutine
     def post(self):
-        # print self.get('slug')
+
+        assert self.body['slug'], u'参数错误'
 
         raise tornado.gen.Return()
