@@ -32,5 +32,5 @@ class BaseModel(db.Model):
         :param kwargs:
         :return:
         '''
-        json_data = utils.json_dumps(model_to_dict(doc))
+        json_data = model_to_dict(doc)
         return json_data

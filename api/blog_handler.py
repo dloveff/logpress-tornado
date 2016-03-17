@@ -12,17 +12,21 @@ except:
 
 from models import Post
 from base import BaseHandler
+from decorators import tornados as decoractor
+import tornado.gen
 
 
 class BlogHandler(BaseHandler):
 
-    def get(self):
-        # print self.slug
-        # doc = Post.find_one_by(Post.slug == self.slug)
-        self.set_header("Content-Type", "application/json; charset=UTF-8")
-        doc = Post.find_one_by(Post.slug == 'slug')
-        self.write(doc)
 
+    @decoractor.wrap_request(need_token=False)
+    @tornado.gen.coroutine
+    def get(self):
+        doc = Post.find_one_by(Post.slug == self.slug)
+        raise tornado.gen.Return(doc)
+
+
+    @decoractor.wrap_request(need_token=False)
+    @tornado.gen.coroutine
     def post(self):
-        slug = self.slug
-        print slug
+        pass

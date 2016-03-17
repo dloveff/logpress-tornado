@@ -30,4 +30,4 @@ def json_dumps(dict, **kwargs):
     :return:
     '''
     kwargs['default'] = __default
-    return json.dumps(dict, ensure_ascii=False, **kwargs)
+    return json.dumps(dict, **kwargs)
