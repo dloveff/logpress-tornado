@@ -10,7 +10,7 @@ try:
 except:
     pass
 
-from models import Post
+from models.models import Post
 from base import BaseHandler
 from decorators import tornados as decoractor
 import tornado.gen

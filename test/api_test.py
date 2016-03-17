@@ -16,17 +16,17 @@ class blog:
         :param url:
         :return:
         '''
-        # url = url + 'blog?&slug=slug0'
-        # r = requests.get(url)
-        # return r.text
-
-        url = url + 'blog'
-        data = {
-            'slug': 123,
-        }
-
-        r = requests.post(url, json.dumps(data))
+        url = url + 'blog?&slug=slug0'
+        r = requests.get(url)
         return r.text
+
+        # url = url + 'blog'
+        # data = {
+        #     'slug': 123,
+        # }
+        #
+        # r = requests.post(url, json.dumps(data))
+        # return r.text
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ except:
     pass
 from jinja2 import FileSystemLoader
 from handlers import BaseHandler
-from models import Post, Category, Tag, Link, Comment
+from models.models import Post, Category, Tag, Link, Comment
 import os, re, urllib
 from datetime import datetime
 from lib.pagination import Pagination

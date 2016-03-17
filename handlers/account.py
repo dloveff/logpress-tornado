@@ -7,7 +7,7 @@ try:
 except:
     pass
 from handlers import BaseHandler
-from models import User
+from models.models import User
 
 
 class LoginHandler(BaseHandler):

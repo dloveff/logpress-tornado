@@ -10,7 +10,6 @@ import peewee
 import datetime
 import hashlib
 import urllib
-from core import db
 from lib.helpers import create_token, cached_property
 from core import smtp_server, settings
 from config import DOMAIN as domain

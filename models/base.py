@@ -5,7 +5,6 @@ __author__ = 'dong'
 
 from peewee import *
 from playhouse.shortcuts import model_to_dict
-from helpers import utils
 from core import db
 
 

@@ -8,7 +8,7 @@ try:
 except:
     pass
 from handlers import BaseHandler, AdminBaseHandler
-from models import Post, Category, Tag, User, Link
+from models.models import Post, Category, Tag, User, Link
 from lib.pagination import Pagination
 import tornado
 

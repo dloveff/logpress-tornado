@@ -50,7 +50,7 @@ def runserver():
 def createuser():
     username = raw_input('input username: ')
     if username:
-        from models import User
+        from models.models import User
         q = User.select().where(User.username == username.strip())
         if q.count() > 0:
             print 'username [ %s ] exists! please choice another one and try it again!' % (username)
@@ -66,8 +66,8 @@ def createuser():
 
 def syncdb():
     from lib.helpers import find_subclasses
-    from models import db
-    models = find_subclasses(db.Model)
+    from models.base import BaseModel as db
+    models = find_subclasses(db)
     for model in models:
         if model.table_exists():
             model.drop_table()
