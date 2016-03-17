@@ -26,7 +26,9 @@ class BlogHandler(BaseHandler):
         raise tornado.gen.Return(doc)
 
 
-    @decoractor.wrap_request(need_token=False)
+    @decoractor.wrap_request(need_token=False, body_fields=['slug'])
     @tornado.gen.coroutine
     def post(self):
-        pass
+        # print self.get('slug')
+
+        raise tornado.gen.Return()
