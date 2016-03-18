@@ -16,6 +16,8 @@ from lib import filters, session
 from core import jinja_environment, smtp_server
 from core import settings
 from core import redis_server
+import os
+from helpers import tools
 
 define("cmd", default='runserver', metavar="runserver|createuser")
 define("port", default=9000, type=int)
@@ -73,6 +75,10 @@ def syncdb():
             model.drop_table()
         model.create_table()
         print 'created table:', model._meta.db_table
+
+
+path = os.path.join(os.path.dirname(__file__), 'config/config.toml')
+config = tools.load_config(path)
 
 
 if __name__ == '__main__':

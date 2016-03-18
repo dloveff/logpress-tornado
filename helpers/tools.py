@@ -5,7 +5,6 @@
 import tomlpython as toml
 
 
-
 def load_config(config):
     """
         读取toml配置文件，并讲dict转换为object，简化访问方式。
@@ -86,6 +85,3 @@ class Dict2Object(dict):
                     else:
                         self[k] = obj[k]
                         return self
-
-
-config = load_config('config/config.toml')

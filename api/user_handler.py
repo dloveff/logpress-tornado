@@ -36,9 +36,6 @@ class VerificationHandler(BaseHandler):
 
 
 
-
-
-
 class UserHandler():
 
     @tornados.wrap_request(need_token=False, body_fields=['mobile'])
