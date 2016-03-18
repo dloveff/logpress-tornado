@@ -200,7 +200,7 @@ class TornadoRequestWrapper(object):
             msg = None
             if isinstance(e, (AssertionError)):
                 msg = e.message
-            elif isinstance(e):
+            elif isinstance(e, ()):
                 msg = u'数据格式错误'
             msg = msg or u'系统繁忙，请稍候重试'
             client.ok = False

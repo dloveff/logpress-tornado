@@ -10,5 +10,6 @@ api_urls = [
     (r'/api/blog/?', BlogHandler),
 
     # 用户
-    (r'/api/user/verifiaction/?', VerificationHandler),
+    (r'/api/user/verifiaction/?', VerificationHandler),     # 获取验证码
+    (r'/api/user/verify_code/validate/?', VerificationValidateHandler),  # 判断验证码有效性
 ]

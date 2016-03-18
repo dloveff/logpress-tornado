@@ -4,3 +4,6 @@ size = 6
 
 [memcached]
 host = '127.0.0.1:11211'
+
+[expiration]
+verify_code = 60

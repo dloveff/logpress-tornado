@@ -7,7 +7,7 @@ import json
 import datetime
 import random
 from uuid import uuid4
-from manager import config
+from settings import config
 
 
 def __default(obj):
