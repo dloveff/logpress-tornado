@@ -58,8 +58,8 @@ class User:
         url = url + 'user/verify_code/validate'
 
         data = {
-            'verify_token': '2d080a2ccee748ada4e8f6d7f1c286dd',
-            'verify_code': '573386',
+            'verify_token': '08cbc355f82944d5ac1d19684ebdcb70',
+            'verify_code': '735760',
         }
 
         r = requests.post(url, json.dumps(data))
@@ -71,5 +71,5 @@ if __name__ == '__main__':
 
     # print blog.get_blog(url)
 
-    print User.get_verification(url)    # 获取验证码
-    # print User.verify_code(url)    # 判断验证码有效性
+    # print User.get_verification(url)    # 获取验证码
+    print User.verify_code(url)    # 判断验证码有效性

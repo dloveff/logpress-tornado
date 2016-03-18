@@ -16,22 +16,15 @@ class BaseMc(object):
         :param kwargs:
         :return:
         '''
-        print args
+
         ttl = kwargs.pop('ttl', 0)
         l = []
-        tuple_len = len(args)
-        for i in tuple_len:
-            l.append(str(args[i]))
-
-        print l
-        # for k, v in kwargs.iteritems():
-        #     l.append(str(v))
+        for i in args:
+            l.append(str(i))
 
         value = ':'.join(l)
 
-        # print value
-        #
-        # if ttl:
-        #     mc.set(key, value, ttl)
-        # else:
-        #     mc.set(key, value)
+        if ttl:
+            mc.set(key, value, ttl)
+        else:
+            mc.set(key, value)

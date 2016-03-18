@@ -57,7 +57,6 @@ class VerificationValidateHandler(BaseHandler):
         :return:
         '''
         result = UserCook.verification_validate(**self.body)
-        result.pop('verify_code', None)
         raise tornado.gen.Return(result)
 
 
