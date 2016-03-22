@@ -13,7 +13,7 @@ except:
 import peewee
 import datetime
 from models.base import BaseModel
-from helpers.utils import get_random_verify_code, get_random_token
+from helpers.utils import get_random_verify_code, get_random_token, gen_digest
 from settings import config
 from cacher.base import BaseMc
 from cacher.memcached_holder import mc
@@ -23,6 +23,7 @@ class User(BaseModel):
     user_id = peewee.CharField(index=True, max_length=30)
     username = peewee.CharField()
     password = peewee.CharField()
+    salt = peewee.CharField()
     mobile = peewee.CharField(index=True, max_length=20)
     created_at = peewee.DateField(default=datetime.datetime.now)
     updated_at = peewee.DateField(default=datetime.datetime.now)
@@ -35,6 +36,7 @@ class User(BaseModel):
 class UserCook():
 
     r_verification = r'd:verify:%s:signup'
+
 
 
     @classmethod
@@ -107,3 +109,116 @@ class UserCook():
         }
 
         return result_doc
+
+
+    @classmethod
+    def verification_info(cls, verify_token):
+        '''
+        验证码信息
+        :param verify_token:
+        :return:
+        '''
+        k = cls.r_verification % (verify_token, )
+        result = mc.get(k)
+        return result
+
+
+    @classmethod
+    def signup(self, mobile, **profile):
+        '''
+        用户注册
+        :param mobile:
+        :param password:
+        :param user_alias:
+        :param profile:
+        :return:
+        '''
+        password = profile.get('password')
+        username = profile.get('username')
+        assert not User.find_one_by(User.mobile == mobile), u'号码已注册，请直接登录'
+        assert password, u'密码不能为空'
+        assert 6 <= len(password) <= 100, u'密码至少为6位'
+        assert username, u'用户名不能为空'
+        assert 2 <= len(username) <= 32, u'用户名长度必须在2 ~ 32'
+
+        base = {
+            'password': password,
+            'salt': get_random_token()
+        }
+
+        password = gen_digest(base)
+
+
+        user_id = self.get_user_id()
+
+        User.create(user_id=user_id, username=username, password=password, salt=base.get('salt'), mobile=mobile)
+
+        return User.find_one_by(User.user_id == user_id)
+
+
+    @classmethod
+    def get_user_id(cls):
+        user_id = get_random_token()
+        if User.select().where(User.user_id == user_id):
+            cls.get_user_id()
+        else:
+            return user_id
+
+
+    @classmethod
+    def verification_destroy(cls, verify_token):
+        '''
+        注册完成
+        :param verify_token:
+        :return:
+        '''
+        k = cls.r_verification % (verify_token, )
+        result = mc.get(k)
+        mc.delete(k)
+        return result
+
+
+    @classmethod
+    def login(cls, mobile, password):
+        '''
+        登陆
+        :param mobile:
+        :param password:
+        :return:
+        '''
+        account = User.find_one_by(User.mobile == mobile)
+        assert account, u'手机号码尚未注册'
+        base = {
+            'password': password,
+            'salt': account.get('salt')
+        }
+
+        assert gen_digest(base) == account.get('password'), u'手机号码或密码错误'
+        user_id = account.get('user_id')
+        return cls.get_login_info_by_id(user_id)
+
+
+    @classmethod
+    def get_login_info_by_id(self, user_id, reset_token=False, account=None):
+        '''
+        获取登录信息
+        :param user_id:
+        :param reset_token:
+        :param account:
+        :return:
+        '''
+        result = BaseMc.login(user_id, reset_token)
+        profile = User.find_one_by(User.user_id == user_id)
+        result.update(profile)
+        return result
+
+
+    @classmethod
+    def logout(cls, token, user_id):
+        '''
+
+        :param token:
+        :param user_id:
+        :return:
+        '''
+        return BaseMc.logout(token, user_id)

@@ -8,6 +8,22 @@ import datetime
 import random
 from uuid import uuid4
 from settings import config
+from hashlib import md5
+
+
+def gen_digest(data):
+    '''
+    生成摘要。
+    :param data:
+    :return:
+    '''
+    if not isinstance(data, basestring):
+        data = json.dumps(data, ensure_ascii=False, sort_keys=True, default=__default)
+    try:
+        digest = md5(data).hexdigest()
+    except:
+        digest = md5(data.encode('utf8')).hexdigest()
+    return digest
 
 
 def __default(obj):

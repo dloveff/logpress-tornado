@@ -6,4 +6,4 @@ size = 6
 host = '127.0.0.1:11211'
 
 [expiration]
-verify_code = 60
+verify_code = 3600

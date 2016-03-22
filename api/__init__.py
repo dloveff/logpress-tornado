@@ -12,4 +12,8 @@ api_urls = [
     # 用户
     (r'/api/user/verifiaction/?', VerificationHandler),     # 获取验证码
     (r'/api/user/verify_code/validate/?', VerificationValidateHandler),  # 判断验证码有效性
+
+    (r'/api/user/signup/?', SignupHandler), #注册
+    (r'/api/user/login/?', LoginHandler), #登录
+    (r'/api/user/logout/?', LogoutHandler), #登出
 ]
